@@ -18,7 +18,7 @@ public class exec {
             ResultSet rs = stmt.executeQuery("SELECT * FROM book");
             while(rs.next()) {
                 int id = rs.getInt("BookID");
-                String name = rs.getString("name");
+                String name = rs.getString("Title");
                 System.out.println(id + "---" + name);
             }
         } catch (SQLException ex) {
