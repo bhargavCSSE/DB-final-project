@@ -42,8 +42,35 @@ source /etc/environment
 echo $JAVA_HOME
 '''
 
+## Set correct permissions for MariaDB
+
+* In your terminal 
+
+'''
+sudo mysql -u root -p
+'''
+
+* In the MariaDB mysql shell
+'''
+use mysql;
+update user set plugin='' where User='root';
+flush privileges;
+exit;
+'''
+
+* From now on, to access mysql all you need to type in terminal is (no password required).
+
+'''
+mysql -u root
+'''
+
+* Now you can go back to the provided sample code and run it. The port, username, and password are all set or default. 
+
+
+
 ** Working on this 
 //to run sample code
+
 //  Enter working directory with JDBC driver (should have moved it to working directory) and run 
 javac exec.java //get exec.class  name of FILE and name of Main class must be the same  JAVA rule
 java -cp ".;mysql-connector-java-8.0.16.jar" YourPackage.YourMainClass
