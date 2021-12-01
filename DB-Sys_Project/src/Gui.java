@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 
+
 public class Gui {
     public static void main(String[] args) throws Exception {
 
@@ -25,6 +26,9 @@ public class Gui {
         JTable tbTableDisplay;
         JTextField tfUserInputString;
         JButton btSubmitButton;
+
+        dbDAO dbConn = new dbDAO();
+
 
         pnGuiPanel = new JPanel();
         GridBagLayout gbGuiPanel = new GridBagLayout();
@@ -74,6 +78,17 @@ public class Gui {
         pnGuiPanel.add( tfUserInputString );
 
         btSubmitButton = new JButton( "Submit"  );
+        btSubmitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    dbConn.printQueryResult();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+        });
         gbcGuiPanel.gridx = 1;
         gbcGuiPanel.gridy = 16;
         gbcGuiPanel.gridwidth = 2;
