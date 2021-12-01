@@ -38,10 +38,30 @@ public class dbDAO {
             }
         }
         finally {
-            rslt.close();
-            myConn.close();
+            close(stmt, rslt);
         }
     }
+
+    private static void close(Connection myConn, Statement stmt, ResultSet rslt)
+			throws SQLException {
+
+		if (rslt != null) {
+			rslt.close();
+		}
+
+		if (stmt != null) {
+			
+		}
+		
+		if (myConn != null) {
+			myConn.close();
+		}
+	}
+
+	private void close(Statement stmt, ResultSet rslt) throws SQLException {
+		close(null, stmt, rslt);		
+	}
+
 
     public static void main(String[] args) throws Exception {
 		
