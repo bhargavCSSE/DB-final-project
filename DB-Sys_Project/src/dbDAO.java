@@ -62,11 +62,4 @@ public class dbDAO {
 		close(null, stmt, rslt);		
 	}
 
-
-    public static void main(String[] args) throws Exception {
-		
-		dbDAO dao = new dbDAO();
-        dao.printQueryResult();
-		
-	}
 }
