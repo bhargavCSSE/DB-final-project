@@ -7,6 +7,8 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -16,6 +18,8 @@ import java.util.List;
 
 
 public class Gui {
+
+    
     public static void main(String[] args) throws Exception {
 
         //Creating the Frame
@@ -25,7 +29,7 @@ public class Gui {
 
         JPanel pnGuiPanel;
         JList lsSQLTableList;
-        JTable tbTableDisplay;
+        final JTable tbTableDisplay = new JTable();
         JTextField tfUserInputString;
         JButton btSubmitButton;
 
@@ -38,7 +42,36 @@ public class Gui {
         pnGuiPanel.setLayout( gbGuiPanel );
 
         
-        lsSQLTableList = new JList(dbConn.getTableList().toArray()) ;
+        lsSQLTableList = new JList(dbConn.getTableList().toArray());
+        lsSQLTableList.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    String desiredTable = lsSQLTableList.getSelectedValue().toString();
+                    List<String> tableColumns = new ArrayList<String>();
+                    try {
+                        tableColumns = dbConn.getTableColumnList(desiredTable);
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    List<String[]> tableTuples = new ArrayList<String[]>();
+                    try {
+                        tableTuples = dbConn.getTableTuples(desiredTable, tableColumns.toArray(new String[0]));
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(tableColumns.toArray(new String[0]), tableTuples);                    
+                    tbTableDisplay.setModel(SQLtable); 
+                  }
+                
+            }
+            
+        }); 
+
+        
         gbcGuiPanel.gridx = 1;
         gbcGuiPanel.gridy = 2;
         gbcGuiPanel.gridwidth = 6;
@@ -50,14 +83,8 @@ public class Gui {
         gbGuiPanel.setConstraints( lsSQLTableList, gbcGuiPanel );
         pnGuiPanel.add( lsSQLTableList );
 
-        String desiredTable = "customer";
-        List<String> tableColumns = new ArrayList<String>();
-        tableColumns = dbConn.getTableColumnList(desiredTable);
-        List<String[]> tableTuples = new ArrayList<String[]>();
-        tableTuples = dbConn.getTableTuples(desiredTable, tableColumns.toArray(new String[0]));
-        SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(tableColumns.toArray(new String[0]), tableTuples);
-        tbTableDisplay = new JTable();
-        tbTableDisplay.setModel(SQLtable); 
+        
+        
         JScrollPane scpTableDisplay = new JScrollPane( tbTableDisplay );
         gbcGuiPanel.gridx = 8;
         gbcGuiPanel.gridy = 2;
