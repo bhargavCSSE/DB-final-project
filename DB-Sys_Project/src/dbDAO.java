@@ -25,13 +25,13 @@ public class dbDAO {
         System.out.println("Connect to database: " + dburl);
     }
 
-    public void printQueryResult() throws Exception {
+    public void printCustomQueryResult(String query) throws Exception {
         Statement stmt = null; 
         ResultSet rslt = null; 
 
         try{
             stmt = myConn.createStatement();
-            rslt = stmt.executeQuery("SELECT * FROM book");
+            rslt = stmt.executeQuery(query);
 
             while(rslt.next()) {
                 int id = rslt.getInt("BookID");
@@ -120,8 +120,6 @@ public class dbDAO {
         return tableTuples;
 
     }
-
-
 
     private static void close(Connection myConn, Statement stmt, ResultSet rslt)
 			throws SQLException {
