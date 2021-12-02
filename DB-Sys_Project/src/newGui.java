@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -38,7 +39,8 @@ public class newGui extends JPanel {
         btQuerySubmitBtn.setBounds (40, 245, 130, 35);
         tfQueryInput.setBounds (175, 250, 480, 25);
         lbQueryOutput.setBounds (45, 285, 610, 115);
-        tbSQLTables.setBounds (170, 15, 480, 205);
+        JScrollPane tableScroll = new JScrollPane(tbSQLTables);
+        tableScroll.setBounds (170, 15, 480, 205);
         
         lsSQLTableList.addListSelectionListener(new ListSelectionListener() {
 
@@ -53,8 +55,7 @@ public class newGui extends JPanel {
                         tableTuples = dbConn.getTableTuples(desiredTable, tableColumns.toArray(new String[0]));
                     } catch (Exception e1) {
                         e1.printStackTrace();
-                    }
-                    System.out.println(tableColumns.toArray(new String[0]));
+                    }                    
                     SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(tableColumns.toArray(new String[0]), tableTuples);                    
                     tbSQLTables.setModel(SQLtable); 
                   }
@@ -72,7 +73,6 @@ public class newGui extends JPanel {
                     String str = dbConn.printCustomQueryResult(queryStr);
                     lbQueryOutput.setText(str);
                     dbConn.getTableList();
-                    System.out.println(str);
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -91,7 +91,7 @@ public class newGui extends JPanel {
         add (btQuerySubmitBtn);
         add (tfQueryInput);
         add (lbQueryOutput);
-        add (tbSQLTables);
+        add (tableScroll);
     }
 
 
