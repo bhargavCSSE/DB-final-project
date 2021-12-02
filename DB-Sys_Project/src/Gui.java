@@ -35,8 +35,8 @@ public class Gui {
         GridBagConstraints gbcGuiPanel = new GridBagConstraints();
         pnGuiPanel.setLayout( gbGuiPanel );
 
-        String []dataSQLTableList = { "Chocolate", "Ice Cream", "Apple Pie" };
-        lsSQLTableList = new JList( dataSQLTableList );
+        
+        lsSQLTableList = new JList(dbConn.getTableList().toArray()) ;
         gbcGuiPanel.gridx = 1;
         gbcGuiPanel.gridy = 2;
         gbcGuiPanel.gridwidth = 6;
@@ -82,6 +82,7 @@ public class Gui {
             public void actionPerformed(ActionEvent e) {
                 try {
                     dbConn.printQueryResult();
+                    dbConn.getTableList();
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

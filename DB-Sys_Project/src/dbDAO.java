@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.sql.ResultSet;
 
@@ -40,6 +42,29 @@ public class dbDAO {
         finally {
             close(stmt, rslt);
         }
+    }
+
+    public List<String> getTableList() throws Exception {
+        Statement stmt = null; 
+        ResultSet rslt = null; 
+        List<String> tableNames = new ArrayList<String>();
+
+        try{
+
+            stmt = myConn.createStatement();
+            rslt = stmt.executeQuery("SHOW TABLES;");
+
+            while(rslt.next()) {
+                String tableName = rslt.getString("Tables_in_db_sys_class");
+                tableNames.add(tableName);
+            }
+        }
+        finally {
+            close(stmt, rslt);
+        }
+
+        return tableNames;
+
     }
 
     private static void close(Connection myConn, Statement stmt, ResultSet rslt)
