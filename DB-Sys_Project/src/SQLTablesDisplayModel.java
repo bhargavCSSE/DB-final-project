@@ -4,9 +4,9 @@ import javax.swing.table.AbstractTableModel;
 class SQLTablesDisplayModel extends AbstractTableModel {
 
     private String[] columnNames;
-	private List<String> tuples; 
+	private List<String[]> tuples; 
 
-	public SQLTablesDisplayModel(String[] columnNames, List<String> tuples) {
+	public SQLTablesDisplayModel(String[] columnNames, List<String[]> tuples) {
 		this.columnNames = columnNames;
 		this.tuples = tuples;
 	}
@@ -28,7 +28,7 @@ class SQLTablesDisplayModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return tuples.get(rowIndex);
+        return tuples.get(rowIndex)[columnIndex];
     }
 
 }

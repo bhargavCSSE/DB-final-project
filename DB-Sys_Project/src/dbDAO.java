@@ -92,28 +92,32 @@ public class dbDAO {
 
     }
 
-    public List<String> getTableTuples(String tableName) throws Exception {
+    public List<String[]> getTableTuples(String tableName, String[] columnNames) throws Exception {
         
         Statement stmt = null; 
         ResultSet rslt = null; 
-        List<String> columnNames = new ArrayList<String>();
-
+        List<String[]> tableTuples = new ArrayList<String[]>();
+        
         try{
 
             stmt = myConn.createStatement();
             rslt = stmt.executeQuery("SELECT * FROM " + tableName + ";");
 
             while(rslt.next()) {
-                int id = rslt.getInt("BookID");
-                String name = rslt.getString("Title");
-                columnNames.add(id + " : " + name);
+                String[] temp = new String[columnNames.length];
+                int index = 0;
+                for(String col : columnNames){
+                    temp[index] = rslt.getString(col);
+                    index++;
+                }
+                tableTuples.add(temp);
             }
         }
         finally {
             close(stmt, rslt);
         }
 
-        return columnNames;
+        return tableTuples;
 
     }
 

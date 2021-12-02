@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Gui {
@@ -48,11 +50,12 @@ public class Gui {
         gbGuiPanel.setConstraints( lsSQLTableList, gbcGuiPanel );
         pnGuiPanel.add( lsSQLTableList );
 
-        String [][]dataTableDisplay = new String[][] { new String[] {"11", "21", "31"}, 
-                                                    new String[] {"12", "22","32"}, 
-                                                    new String[] {"13", "23", "33"} };
-        String []colsTableDisplay = new String[] { "", "" , ""};
-        SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(dbConn.getTableColumnList("book").toArray(new String[0]), dbConn.getTableTuples("book"));
+        String desiredTable = "customer";
+        List<String> tableColumns = new ArrayList<String>();
+        tableColumns = dbConn.getTableColumnList(desiredTable);
+        List<String[]> tableTuples = new ArrayList<String[]>();
+        tableTuples = dbConn.getTableTuples(desiredTable, tableColumns.toArray(new String[0]));
+        SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(tableColumns.toArray(new String[0]), tableTuples);
         tbTableDisplay = new JTable();
         tbTableDisplay.setModel(SQLtable); 
         JScrollPane scpTableDisplay = new JScrollPane( tbTableDisplay );
