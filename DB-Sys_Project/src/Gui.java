@@ -74,36 +74,9 @@ public class Gui {
             
         }); 
         JScrollPane scpSQLTables = new JScrollPane( tbSQLTables );
-        gbcTableDisplayPanel.gridx = 5;
-        gbcTableDisplayPanel.gridy = 1;
-        gbcTableDisplayPanel.gridwidth = 12;
-        gbcTableDisplayPanel.gridheight = 11;
-        gbcTableDisplayPanel.fill = GridBagConstraints.BOTH;
-        gbcTableDisplayPanel.weightx = 1;
-        gbcTableDisplayPanel.weighty = 1;
-        gbcTableDisplayPanel.anchor = GridBagConstraints.NORTH;
-        gbTableDisplayPanel.setConstraints( scpSQLTables, gbcTableDisplayPanel );
+        
         pnTableDisplayPanel.add( scpSQLTables );
-
-        gbcTableDisplayPanel.gridx = 1;
-        gbcTableDisplayPanel.gridy = 1;
-        gbcTableDisplayPanel.gridwidth = 4;
-        gbcTableDisplayPanel.gridheight = 11;
-        gbcTableDisplayPanel.fill = GridBagConstraints.BOTH;
-        gbcTableDisplayPanel.weightx = 1;
-        gbcTableDisplayPanel.weighty = 1;
-        gbcTableDisplayPanel.anchor = GridBagConstraints.NORTH;
-        gbTableDisplayPanel.setConstraints( lsSQLTableList, gbcTableDisplayPanel );
         pnTableDisplayPanel.add( lsSQLTableList );
-        gbcRootPanel.gridx = 1;
-        gbcRootPanel.gridy = 1;
-        gbcRootPanel.gridwidth = 18;
-        gbcRootPanel.gridheight = 6;
-        gbcRootPanel.fill = GridBagConstraints.BOTH;
-        gbcRootPanel.weightx = 1;
-        gbcRootPanel.weighty = 0;
-        gbcRootPanel.anchor = GridBagConstraints.CENTER;
-        gbRootPanel.setConstraints( pnTableDisplayPanel, gbcRootPanel );
         pnRootPanel.add( pnTableDisplayPanel );
 
         pnCustomQueryPanel = new JPanel();
@@ -113,32 +86,12 @@ public class Gui {
         pnCustomQueryPanel.setLayout( gbCustomQueryPanel );
 
         btQuerySubmitBtn = new JButton( "Submit"  );
-        
-        gbcCustomQueryPanel.gridx = 2;
-        gbcCustomQueryPanel.gridy = 1;
-        gbcCustomQueryPanel.gridwidth = 1;
-        gbcCustomQueryPanel.gridheight = 4;
-        gbcCustomQueryPanel.fill = GridBagConstraints.BOTH;
-        gbcCustomQueryPanel.weightx = 1;
-        gbcCustomQueryPanel.weighty = 2;
-        gbcCustomQueryPanel.anchor = GridBagConstraints.NORTH;
-        gbCustomQueryPanel.setConstraints( btQuerySubmitBtn, gbcCustomQueryPanel );
         pnCustomQueryPanel.add( btQuerySubmitBtn );
 
-        tfQueryInput = new JTextField( );
-        gbcCustomQueryPanel.gridx = 4;
-        gbcCustomQueryPanel.gridy = 1;
-        gbcCustomQueryPanel.gridwidth = 15;
-        gbcCustomQueryPanel.gridheight = 2;
-        gbcCustomQueryPanel.fill = GridBagConstraints.BOTH;
-        gbcCustomQueryPanel.weightx = 1;
-        gbcCustomQueryPanel.weighty = 0;
-        gbcCustomQueryPanel.anchor = GridBagConstraints.NORTH;
-        gbCustomQueryPanel.setConstraints( tfQueryInput, gbcCustomQueryPanel );
+        tfQueryInput = new JTextField( );        
         pnCustomQueryPanel.add( tfQueryInput );
 
         lbQueryOutput = new JLabel( "" );
-
         btQuerySubmitBtn.addActionListener(new ActionListener() {
 
             @Override
@@ -157,25 +110,9 @@ public class Gui {
         });
 
         JScrollPane scpQueryOutput = new JScrollPane( lbQueryOutput );
-        gbcCustomQueryPanel.gridx = 2;
-        gbcCustomQueryPanel.gridy = 4;
-        gbcCustomQueryPanel.gridwidth = 17;
-        gbcCustomQueryPanel.gridheight = 6;
-        gbcCustomQueryPanel.fill = GridBagConstraints.BOTH;
-        gbcCustomQueryPanel.weightx = 1;
-        gbcCustomQueryPanel.weighty = 1;
-        gbcCustomQueryPanel.anchor = GridBagConstraints.SOUTH;
-        gbCustomQueryPanel.setConstraints( scpQueryOutput, gbcCustomQueryPanel );
+       
+       
         pnCustomQueryPanel.add( scpQueryOutput );
-        gbcRootPanel.gridx = 1;
-        gbcRootPanel.gridy = 8;
-        gbcRootPanel.gridwidth = 18;
-        gbcRootPanel.gridheight = 11;
-        gbcRootPanel.fill = GridBagConstraints.BOTH;
-        gbcRootPanel.weightx = 1;
-        gbcRootPanel.weighty = 0;
-        gbcRootPanel.anchor = GridBagConstraints.CENTER;
-        gbRootPanel.setConstraints( pnCustomQueryPanel, gbcRootPanel );
         pnRootPanel.add( pnCustomQueryPanel );
 
 
