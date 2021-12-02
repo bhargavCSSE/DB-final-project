@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 
 public class dbDAO {
 
@@ -25,23 +26,29 @@ public class dbDAO {
         System.out.println("Connect to database: " + dburl);
     }
 
-    public void printCustomQueryResult(String query) throws Exception {
-        Statement stmt = null; 
-        ResultSet rslt = null; 
-
-        try{
-            stmt = myConn.createStatement();
-            rslt = stmt.executeQuery(query);
-
-            while(rslt.next()) {
-                int id = rslt.getInt("BookID");
-                String name = rslt.getString("Title");
-                System.out.println(id + "---" + name);
+    public String printCustomQueryResult(String query) throws Exception {
+        Statement stmt = myConn.createStatement(); 
+        String queryResult = new String();
+        boolean status = stmt.execute(query);
+        if(status){
+            //query is a select query.
+            ResultSet rs = stmt.getResultSet();
+            int numOfCols = rs.getMetaData().getColumnCount();
+            
+            while(rs.next()){
+                for(int i = 1; i<=numOfCols; i++) {
+                    queryResult += rs.getString(i) + " | ";
+                }
+                queryResult += "\n";
             }
+            rs.close();
+        } else {
+            //query can be update or any query apart from select query
+            int count = stmt.getUpdateCount();
+            System.out.println("Total records updated: "+count);
         }
-        finally {
-            close(stmt, rslt);
-        }
+        
+        return queryResult;
     }
 
     public List<String> getTableList() throws Exception {

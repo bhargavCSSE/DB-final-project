@@ -2,7 +2,6 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -12,9 +11,9 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JLabel;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.awt.BorderLayout;
+import java.awt.event.*;
 
 
 public class Gui {
@@ -114,13 +113,14 @@ public class Gui {
         pnCustomQueryPanel.setLayout( gbCustomQueryPanel );
 
         btQuerySubmitBtn = new JButton( "Submit"  );
+        
         gbcCustomQueryPanel.gridx = 2;
         gbcCustomQueryPanel.gridy = 1;
         gbcCustomQueryPanel.gridwidth = 1;
-        gbcCustomQueryPanel.gridheight = 2;
+        gbcCustomQueryPanel.gridheight = 4;
         gbcCustomQueryPanel.fill = GridBagConstraints.BOTH;
         gbcCustomQueryPanel.weightx = 1;
-        gbcCustomQueryPanel.weighty = 0;
+        gbcCustomQueryPanel.weighty = 2;
         gbcCustomQueryPanel.anchor = GridBagConstraints.NORTH;
         gbCustomQueryPanel.setConstraints( btQuerySubmitBtn, gbcCustomQueryPanel );
         pnCustomQueryPanel.add( btQuerySubmitBtn );
@@ -137,7 +137,25 @@ public class Gui {
         gbCustomQueryPanel.setConstraints( tfQueryInput, gbcCustomQueryPanel );
         pnCustomQueryPanel.add( tfQueryInput );
 
-        lbQueryOutput = new JLabel( ""  );
+        lbQueryOutput = new JLabel( "" );
+
+        btQuerySubmitBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String str = dbConn.printCustomQueryResult("SELECT * FROM customer;");
+                    lbQueryOutput.setText(str);
+                    dbConn.getTableList();
+                    System.out.println(str);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+        });
+
         JScrollPane scpQueryOutput = new JScrollPane( lbQueryOutput );
         gbcCustomQueryPanel.gridx = 2;
         gbcCustomQueryPanel.gridy = 4;
@@ -146,7 +164,7 @@ public class Gui {
         gbcCustomQueryPanel.fill = GridBagConstraints.BOTH;
         gbcCustomQueryPanel.weightx = 1;
         gbcCustomQueryPanel.weighty = 1;
-        gbcCustomQueryPanel.anchor = GridBagConstraints.CENTER;
+        gbcCustomQueryPanel.anchor = GridBagConstraints.SOUTH;
         gbCustomQueryPanel.setConstraints( scpQueryOutput, gbcCustomQueryPanel );
         pnCustomQueryPanel.add( scpQueryOutput );
         gbcRootPanel.gridx = 1;
@@ -156,9 +174,10 @@ public class Gui {
         gbcRootPanel.fill = GridBagConstraints.BOTH;
         gbcRootPanel.weightx = 1;
         gbcRootPanel.weighty = 0;
-        gbcRootPanel.anchor = GridBagConstraints.SOUTH;
+        gbcRootPanel.anchor = GridBagConstraints.CENTER;
         gbRootPanel.setConstraints( pnCustomQueryPanel, gbcRootPanel );
         pnRootPanel.add( pnCustomQueryPanel );
+
 
         frame.getContentPane().add(BorderLayout.CENTER, pnRootPanel);
         frame.setVisible(true);
