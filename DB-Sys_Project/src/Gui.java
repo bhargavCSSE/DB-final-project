@@ -17,7 +17,7 @@ public class Gui {
     public static void main(String[] args) throws Exception {
 
         //Creating the Frame
-        JFrame frame = new JFrame("Chat Frame");
+        JFrame frame = new JFrame("Database Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
 
@@ -48,11 +48,13 @@ public class Gui {
         gbGuiPanel.setConstraints( lsSQLTableList, gbcGuiPanel );
         pnGuiPanel.add( lsSQLTableList );
 
-        String [][]dataTableDisplay = new String[][] { new String[] {"11", "21"}, 
-                                                    new String[] {"12", "22"}, 
-                                                    new String[] {"13", "23"} };
-        String []colsTableDisplay = new String[] { "", "" };
-        tbTableDisplay = new JTable( dataTableDisplay, colsTableDisplay );
+        String [][]dataTableDisplay = new String[][] { new String[] {"11", "21", "31"}, 
+                                                    new String[] {"12", "22","32"}, 
+                                                    new String[] {"13", "23", "33"} };
+        String []colsTableDisplay = new String[] { "", "" , ""};
+        SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(dbConn.getTableColumnList("book").toArray(new String[0]), dbConn.getTableTuples("book"));
+        tbTableDisplay = new JTable();
+        tbTableDisplay.setModel(SQLtable); 
         JScrollPane scpTableDisplay = new JScrollPane( tbTableDisplay );
         gbcGuiPanel.gridx = 8;
         gbcGuiPanel.gridy = 2;

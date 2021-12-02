@@ -67,6 +67,58 @@ public class dbDAO {
 
     }
 
+    public List<String> getTableColumnList(String tableName) throws Exception {
+        
+        Statement stmt = null; 
+        ResultSet rslt = null; 
+        List<String> columnNames = new ArrayList<String>();
+
+        try{
+
+            stmt = myConn.createStatement();
+            rslt = stmt.executeQuery("SHOW COLUMNS FROM " + tableName +";");
+
+            while(rslt.next()) {
+                String columnName = rslt.getString("Field");
+                String columnDataType = rslt.getString("Type");
+                columnNames.add(columnName);
+            }
+        }
+        finally {
+            close(stmt, rslt);
+        }
+
+        return columnNames;
+
+    }
+
+    public List<String> getTableTuples(String tableName) throws Exception {
+        
+        Statement stmt = null; 
+        ResultSet rslt = null; 
+        List<String> columnNames = new ArrayList<String>();
+
+        try{
+
+            stmt = myConn.createStatement();
+            rslt = stmt.executeQuery("SELECT * FROM " + tableName + ";");
+
+            while(rslt.next()) {
+                int id = rslt.getInt("BookID");
+                String name = rslt.getString("Title");
+                columnNames.add(id + " : " + name);
+            }
+        }
+        finally {
+            close(stmt, rslt);
+        }
+
+        return columnNames;
+
+    }
+
+
+
     private static void close(Connection myConn, Statement stmt, ResultSet rslt)
 			throws SQLException {
 
