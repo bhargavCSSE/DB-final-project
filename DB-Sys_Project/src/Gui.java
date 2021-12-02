@@ -19,7 +19,7 @@ public class Gui {
         //Creating the Frame
         JFrame frame = new JFrame("Chat Frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(600, 600);
 
         JPanel pnGuiPanel;
         JList lsSQLTableList;
