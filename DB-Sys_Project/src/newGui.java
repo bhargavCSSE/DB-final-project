@@ -20,16 +20,17 @@ public class newGui extends JPanel {
     private JButton btQuerySubmitBtn;
     private JTextField tfQueryInput;
     private JTextArea lbQueryOutput;
+    private JTable tbSQLTables;
 
     public newGui() throws Exception {    
 
         //construct components
         dbDAO dbConn = new dbDAO();
-        JList lsSQLTableList = new JList(dbConn.getTableList().toArray());;
+        lsSQLTableList = new JList(dbConn.getTableList().toArray());;
         btQuerySubmitBtn = new JButton ("Submit");
         tfQueryInput = new JTextField (5);
         lbQueryOutput = new JTextArea (5, 5);
-        JTable tbSQLTables = new JTable();
+        tbSQLTables = new JTable();
         
 
         //set component bounds (only needed by Absolute Positioning)
@@ -53,7 +54,7 @@ public class newGui extends JPanel {
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    
+                    System.out.println(tableColumns.toArray(new String[0]));
                     SQLTablesDisplayModel SQLtable = new SQLTablesDisplayModel(tableColumns.toArray(new String[0]), tableTuples);                    
                     tbSQLTables.setModel(SQLtable); 
                   }
@@ -67,7 +68,8 @@ public class newGui extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String str = dbConn.printCustomQueryResult("SELECT * FROM customer;");
+                    String queryStr = tfQueryInput.getText();
+                    String str = dbConn.printCustomQueryResult(queryStr);
                     lbQueryOutput.setText(str);
                     dbConn.getTableList();
                     System.out.println(str);
