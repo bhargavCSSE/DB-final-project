@@ -1,6 +1,6 @@
 # DB-final-project
 
-### Navigate to the env_setup folder 
+### Setting up JAVA (If not configured already)
 * Download Java SDK 17 Debian here 
 https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
 
@@ -66,11 +66,11 @@ mysql -u root
 
 * Now you can go back to the provided sample code and run it. The port, username, and password are all set or default. 
 
+## Running for your DB
 
+* The properties folder will hold you username, password, and port number for your specific database, Change those values and run once db is set up. 
 
-** Working on this 
-//to run sample code
-
-//  Enter working directory with JDBC driver (should have moved it to working directory) and run 
-javac exec.java //get exec.class  name of FILE and name of Main class must be the same  JAVA rule
-java -cp ".;mysql-connector-java-8.0.16.jar" YourPackage.YourMainClass
+### Contact Us
+(If something doesn't function)
+- Christopher Casey \ czc0186@auburn.edu 
+- Bhargav Joshi \bvj0002@auburn.edu
