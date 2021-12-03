@@ -25,7 +25,7 @@ public class newGui extends JPanel {
 
     public newGui() throws Exception {    
 
-        //construct components
+        //swing components in frame
         dbDAO dbConn = new dbDAO();
         lsSQLTableList = new JList(dbConn.getTableList().toArray());;
         btQuerySubmitBtn = new JButton ("Submit");
@@ -33,8 +33,7 @@ public class newGui extends JPanel {
         lbQueryOutput = new JTextArea (5, 5);
         tbSQLTables = new JTable();
         
-
-        //set component bounds (only needed by Absolute Positioning)
+        // absolute positioning 
         lsSQLTableList.setBounds (40, 15, 120, 205);
         btQuerySubmitBtn.setBounds (40, 245, 130, 35);
         tfQueryInput.setBounds (175, 250, 480, 25);
@@ -81,12 +80,10 @@ public class newGui extends JPanel {
             }
         });
 
-
-        //adjust size and set layout
         setPreferredSize (new Dimension (681, 407));
         setLayout (null);
 
-        //add components
+        //add components to frame
         add (lsSQLTableList);
         add (btQuerySubmitBtn);
         add (tfQueryInput);
