@@ -47,7 +47,7 @@ public class dbDAO {
                 rs.close();
             }
             else{
-                queryResult += "DROP now allowed";
+                queryResult += "DROP not allowed";
             }
 
     } catch (SQLException e) {
