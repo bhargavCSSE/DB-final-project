@@ -68,7 +68,7 @@ public class dbDAO {
             rslt = stmt.executeQuery("SHOW TABLES;");
 
             while(rslt.next()) {
-                String tableName = rslt.getString("Tables_in_db_sys_class");
+                String tableName = rslt.getString(1);
                 tableNames.add(tableName);
             }
         }
